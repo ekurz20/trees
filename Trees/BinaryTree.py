@@ -30,19 +30,6 @@ class Node():
         ret += ')'
         return ret
 
-class Stack:
-    def __init__(self):
-        self.items = []
-    def isEmpty(self):
-        return self.items == []
-    def push(self, item):
-        self.items.append(item)
-    def pop(self):
-        return self.items.pop()
-    def peek(self):
-        return self.items[len(self.items)-1]
-    def size(self):
-        return len(self.items)
 
 class BinaryTree():
     '''
@@ -199,17 +186,17 @@ class BinaryTree():
         '''
         if self.root is None:
             return 0
-        stack = Stack()
-        stack.push(self.root)
+        stack = []
+        stack.append(self.root)
         size = 1
         while stack:
             node = stack.pop()
             if node.left:
                 size+=1
-                stack.push(node.left)
+                stack.append(node.left)
             if node.right:
                 size+=1
-                stack.push(node.right)
+                stack.append(node.right)
         return size
 
     def size_(self, node):
