@@ -5,7 +5,7 @@ The functions in this file are considerably harder than the functions in the Bin
 
 from Trees.BinaryTree import BinaryTree, Node
 
-class BST():
+class BST(BinaryTree):
     '''
     FIXME:
     BST is currently not a subclass of BinaryTree.
@@ -13,12 +13,15 @@ class BST():
     and in the constructor below.
     '''
 
-    def __init__(self, xs=None):
+    def __init__(self, root = None,  xs=None):
         '''
         FIXME:
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the BST.
         '''
+        super().__init__(root)
+        if xs != None:
+            BST.insert_list()
 
 
     def __repr__(self):
@@ -58,6 +61,16 @@ class BST():
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
+        if not node:
+            return True
+        val = node.value
+        if val <=lower or val>=upper:
+            return False
+        if not BST._is_bst_satisfied(node.right, val, upper):
+            return False
+        if not BST._is_bst_satisfied(node.left, lower, val):
+            return False
+        return True
 
 
     def insert(self, value):
@@ -78,6 +91,18 @@ class BST():
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
+        if value < node.value:
+            if node.left is None:
+                node.left = Node(value)
+            else:
+                BST._insert(value, node.left)
+        elif value > node.value:
+            if node.right is None:
+                node.right = Node(value)
+            else:
+                BST._insert(value,node.right)
+        else:
+            print("value is already present in tree")
 
 
     def insert_list(self, xs):
@@ -87,6 +112,8 @@ class BST():
         FIXME:
         Implement this function.
         '''
+        while xs:
+            BST.insert(xs.pop())
 
 
     def __contains__(self, value):
@@ -112,6 +139,14 @@ class BST():
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
+        if value > node.value and node.right:
+            return BST._find(value,node.right)
+        elif value < node.value and node.left:
+            return BST._find(value,node.left)
+        if value == node.value:
+            return True
+        else:
+            return False
 
 
     def find_smallest(self):
@@ -127,6 +162,16 @@ class BST():
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
+        node = self.root
+        return BST._find_smallest(node)
+
+    @staticmethod
+    def _find_smallest(node):
+        if node.left:
+            return BST._find_smallest(node.left)
+        else:
+            return node.value
+
 
 
     def find_largest(self):
@@ -138,6 +183,15 @@ class BST():
         This function is not implemented in the lecture notes,
         but if you understand the structure of a BST it should be easy to implement.
         '''
+        node = self.root
+        return BST._find_largest(node)
+
+    @staticmethod
+    def _find_largest(node):
+        if node.right:
+            return BST._find_largest(node.right)
+        else:
+            return node.value
 
 
     def remove(self,value):
