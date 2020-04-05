@@ -170,7 +170,7 @@ class BST(BinaryTree):
         if node.left:
             return BST._find_smallest(node.left)
         else:
-            return node.value
+            return [node.value]
 
 
 
@@ -191,7 +191,7 @@ class BST(BinaryTree):
         if node.right:
             return BST._find_largest(node.right)
         else:
-            return node.value
+            return [node.value]
 
 
     def remove(self,value):
