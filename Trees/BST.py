@@ -210,6 +210,28 @@ class BST(BinaryTree):
         '''
         self.root = BST._remove(self.root,value)
 
+    @staticmethod
+    def _remove(node, value):
+        if value > node.value and node.right:
+            return BST._remove(value,node.right)
+        elif value < node.value and node.left:
+            return BST._remove(value,node.left)
+        else:
+            if node.left is None:
+                temp = node.right
+                node = None
+                return temp
+            elif node.right is None:
+                temp = node.left
+                node = None
+                return temp
+
+            node = find_smallest(node.right)
+            node.value = temp.value
+            node.right = _remove(node.right, temp.value)
+
+            return node
+
 
     def remove_list(self, xs):
         '''
@@ -218,3 +240,4 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
+
