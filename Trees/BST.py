@@ -109,8 +109,8 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
-        while xs:
-            BST.insert(xs.pop())
+        for item in xs:
+            self.insert(item)
 
 
     def __contains__(self, value):
