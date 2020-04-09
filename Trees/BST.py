@@ -215,9 +215,9 @@ class BST(BinaryTree):
         if not node:
             return node
         if node.value > value:
-            node.left = BST.remove(node.left,value)
+            node.left = BST._remove(node.left,value)
         if node.value < value:
-            node.right = BST.remove(node.right,value)
+            node.right = BST._remove(node.right,value)
         else:
             if not node.right:
                 return node.left
@@ -227,7 +227,7 @@ class BST(BinaryTree):
             while temp.left:
                 temp = temp.left
             node.value = temp.value
-            node.right = BST.remove(node.right,node.value)
+            node.right = BST._remove(node.right,node.value)
         return node
 
 
