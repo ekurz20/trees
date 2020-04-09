@@ -238,4 +238,6 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        for item in xs:
+            self.remove(item)
 
