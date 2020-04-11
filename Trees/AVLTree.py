@@ -55,7 +55,7 @@ class AVLTree(BST):
         Implement this function.
         '''
         if node is None:
-            return Ture
+            return True
         return AVLTree._balance_factor(node) in [-1,0,1] and AVLTree._is_avl_satisfied(node.right) and AVLTree._is_avl_satisfied(node.left)
 
 
@@ -70,9 +70,7 @@ class AVLTree(BST):
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-        if node is None:
-            return node
-        if node.right is None:
+        if node is None and node.right is None:
             return node
 
         newroot = Node(node.right.value)
@@ -98,14 +96,12 @@ class AVLTree(BST):
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-        if node is None:
-            return node
-        if node.left is None:
+        if node is None and node.left is None:
             return node
 
         newroot= Node(node.left.value)
         newroot.left = node.right.left
-        right = NOde(node.value)
+        right = Node(node.value)
         right.right = node.right
         right.left = node.left.right
 
@@ -158,7 +154,7 @@ class AVLTree(BST):
                 if AVLTree._balance_factor(node.left) < 0:
                     node.left = AVLTree._left_rotate(node.left)
                 return AVLTree._right_rotate(node)
-            elif AVLTree_.balance_factor(node)<-1:
+            elif AVLTree._balance_factor(node)<-1:
                 if AVLTree._balance_factor(node.right)>0:
                     node.right = AVLTree._right_rotate(node.right)
                 return AVLTree._left_rotate(node)
