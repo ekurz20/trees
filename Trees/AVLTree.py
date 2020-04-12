@@ -70,7 +70,9 @@ class AVLTree(BST):
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-        if node is None and node.right is None:
+        if node is None:
+            return node
+        if node.right is None:
             return node
 
         newroot = Node(node.right.value)
@@ -96,11 +98,13 @@ class AVLTree(BST):
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-        if node is None and node.left is None:
+        if node is None:
+            return node
+        if node.left is None:
             return node
 
         newroot= Node(node.left.value)
-        newroot.left = node.right.left
+        newroot.left = node.left.left
         right = Node(node.value)
         right.right = node.right
         right.left = node.left.right
