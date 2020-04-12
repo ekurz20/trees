@@ -145,7 +145,11 @@ class AVLTree(BST):
             else:
                 AVLTree._insert(value,node.right)
         if AVLTree._is_avl_satisfied(node)==False:
+            node.left = AVLTree.rebalance(node.left)
+            node.right = AVLTree.rebalance(node.right)
             return AVLTree.rebalance(node)
+        else:
+            return node
 
     def insert_list(self, xs):
         for item in xs:
