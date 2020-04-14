@@ -70,19 +70,17 @@ class AVLTree(BST):
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-        if node is None:
-            return node
-        if node.right is None:
+        if node is None or node.right is None:
             return node
 
         newroot = Node(node.right.value)
         newroot.right = node.right.right
 
-        left = Node(node.value)
-        left.left = node.left
-        left.right = node.right.left
+        left1 = Node(node.value)
+        left1.left = node.left
+        left1.right = node.right.left
 
-        newroot.left = left
+        newroot.left = left1
 
         return newroot
 
@@ -98,18 +96,16 @@ class AVLTree(BST):
         The textbook's class hierarchy for their AVL tree code is fairly different from our class hierarchy,
         however, so you will have to adapt their code.
         '''
-        if node is None:
-            return node
-        if node.left is None:
+        if node is None or node.left is None:
             return node
 
         newroot= Node(node.left.value)
         newroot.left = node.left.left
-        right = Node(node.value)
-        right.right = node.right
-        right.left = node.left.right
+        right1 = Node(node.value)
+        right1.right = node.right
+        right1.left = node.left.right
 
-        newroot.right = right
+        newroot.right = right1
         return newroot
 
     def insert(self, value):
@@ -130,7 +126,11 @@ class AVLTree(BST):
         if self.root is None:
             self.root = Node(value)
         else:
-            AVLTree._insert(value, self.root)
+            self.root = AVLTree._insert(value, self.root)
+    def insert_list(self, xs):
+        for item in xs:
+            self.insert(item)
+
 
     @staticmethod
     def _insert(value,node):
@@ -144,6 +144,9 @@ class AVLTree(BST):
                 node.right = Node(value)
             else:
                 AVLTree._insert(value,node.right)
+        else:
+            print('Already in the tree')
+
         if AVLTree._is_avl_satisfied(node)==False:
             node.left = AVLTree.rebalance(node.left)
             node.right = AVLTree.rebalance(node.right)
@@ -151,20 +154,16 @@ class AVLTree(BST):
         else:
             return node
 
-    def insert_list(self, xs):
-        for item in xs:
-            self.insert(item)
 
     @staticmethod
     def rebalance(node):
-        while AVLTree._balance_factor(node)<-1 or AVLTree._balance_factor(node) > 1:
-            if AVLTree._balance_factor(node)> 1:
-                if AVLTree._balance_factor(node.left) < 0:
-                    node.left = AVLTree._left_rotate(node.left)
-                return AVLTree._right_rotate(node)
-            elif AVLTree._balance_factor(node)<-1:
-                if AVLTree._balance_factor(node.right)>0:
-                    node.right = AVLTree._right_rotate(node.right)
-                return AVLTree._left_rotate(node)
-            else:
-                return node
+        if AVLTree._balance_factor(node)> 1:
+            if AVLTree._balance_factor(node.left) < 0:
+                node.left = AVLTree._left_rotate(node.left)
+            return AVLTree._right_rotate(node)
+        elif AVLTree._balance_factor(node)<-1:
+            if AVLTree._balance_factor(node.right)>0:
+                node.right = AVLTree._right_rotate(node.right)
+            return AVLTree._left_rotate(node)
+        else:
+            return node
