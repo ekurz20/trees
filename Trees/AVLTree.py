@@ -167,3 +167,37 @@ class AVLTree(BST):
             return AVLTree._left_rotate(node)
         else:
             return node
+
+
+    def remove(self, value):
+        self.root = AVLTree._remove(self.root, value)
+
+    @staticmethod
+    def _remove(node,value):
+        if not node:
+            return node
+        if node.value > value:
+            node.left = AVLTree._remove(node.left, value)
+        elif node.value < value:
+            node.right = AVLTree._remove(node.right, value)
+        else:
+            if not node.right:
+                return node.left
+            if not node.left:
+                return node.right
+            temp = node.right
+            while temp.left:
+                temp = temp.left
+            node.value = temp.value
+            node.right = AVLTree._remove(node.right, node.value)
+        
+        if AVLTree._is_avl_satisfied(node)==False:
+            node.left = AVLTree.rebalance(node.left)
+            node.right = AVLTree.rebalance(node.right)
+            return AVLTree.rebalance(node)
+        else:
+            return node
+
+    def remove_list(self,xs):
+        for item in xs:
+            self.remove(item)

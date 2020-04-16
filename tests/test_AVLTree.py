@@ -230,7 +230,6 @@ def test__AVLTree___init__(xs):
 # NOTE:
 # I am not having you implement the remove function,
 # and therefore the following test cases are commented out.
-"""
 @given(xs=ints)
 def test__AVLTree_remove1(xs):
     '''
@@ -273,7 +272,6 @@ def test__AVLTree_remove_list(xs,ys):
     avl.remove_list(ys)
     for y in ys:
         assert y not in avl
-"""
 
 @given(xs=ints)
 def test__AVLTree_inorder_property(xs):
