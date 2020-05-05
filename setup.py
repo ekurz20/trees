@@ -22,6 +22,6 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["trees"],
+    packages=["Trees"],
     install_requires=["pytest", "hypothesis"],
 )
